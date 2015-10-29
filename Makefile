@@ -11,7 +11,7 @@ rundev:
 	sudo docker run -d --restart="always" -h local.api.glytoucan -p 81:8080  -v /opt/api.glytoucan/maven:/root/.m2 -v ~/workspace/api.glytoucan:/workspace -w /workspace --name="api.glytoucan"  maven:3.3.3-jdk-8 mvn -U --debug spring-boot:run
 
 runtest:
-	sudo docker run -d --restart="always" -h local.api.glytoucan -p 84:8080  -v /opt/test.api.glytoucan/maven:/root/.m2 -v /mnt/jenkins/workspace/test.api.glytoucan.org:/workspace -w /workspace --name="test.api.glytoucan" -e "MAIL_ADDRESS_FROM=$(MAIL_ADDRESS_FROM)" maven:3.3.3-jdk-8 mvn -U spring-boot:run
+	sudo docker run -d --restart="always" -h local.api.glytoucan -p 84:8080  -v /opt/test.api.glytoucan/maven:/root/.m2 -v /mnt/jenkins/workspace/test.api.glytoucan.org:/workspace -w /workspace --name="test.api.glytoucan" -e "MAIL_ADDRESS_FROM=$(MAIL_ADDRESS_FROM)" -e "MAIL_ADDRESS_ADMIN=$(MAIL_ADDRESS_ADMIN)" -e "MAIL_BODY_NEWREGISTRATION=$(MAIL_BODY_NEWREGISTRATION)" -e MAIL_BODY_NOTIFYREGISTRATION=$(MAIL_BODY_NOTIFYREGISTRATION) -e MAIL_SUBJECT_NEWREGISTRATION=$(MAIL_SUBJECT_NEWREGISTRATION) -e MAIL_SUBJECT_NOTIFYREGISTRATION=$(MAIL_SUBJECT_NOTIFYREGISTRATION) -e MSDB_RDF=$(MSDB_RDF) -e "google.oauth2.clientId=$(GOOGLE_OAUTH2_CLIENTID)" -e "google.oauth2.clientSecret=$(GOOGLE_OAUTH2_CLIENTSECRET)" -e "spring.mail.username=$(SPRING_MAIL_USERNAME)" -e "spring.mail.password=$(SPRING_MAIL_PASSWORD)" -e "SPRING_TRIPLESTORE_PASSWORD=$(SPRING_TRIPLESTORE_PASSWORD)" -e "spring.triplestore.password=$(SPRING_TRIPLESTORE_PASSWORD)" -e "SPRING_TRIPLESTORE_URL=$(SPRING_TRIPLESTORE_URL)" -e "spring.triplestore.url=$(SPRING_TRIPLESTORE_URL)" maven:3.3.3-jdk-8 mvn -U spring-boot:run
 
 bash:
 	sudo docker exec -it api.glytoucan /bin/bash
