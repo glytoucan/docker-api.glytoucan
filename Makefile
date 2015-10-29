@@ -28,6 +28,9 @@ rm:
 logs:
 	sudo docker logs --tail=100 -f api.glytoucan
 
+testlogs:
+	sudo docker logs --tail=100 -f test.api.glytoucan
+
 ip:
 	sudo docker inspect -f "{{ .NetworkSettings.IPAddress }}" api.glytoucan
 
